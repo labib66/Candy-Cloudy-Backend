@@ -30,8 +30,7 @@ use Common\Files\Controllers\RestoreDeletedEntriesController;
 
 // prettier-ignore
 Route::group(['prefix' => 'v1'], function() {
-  // Route::group(['middleware' => ['optionalAuth:sanctum', 'verified', 'verifyApiAccess']], function () {
-
+  Route::group(['middleware' => ['auth:sanctum', 'verified', 'verifyApiAccess']], function () {
   //acount Setting
       Route::get('user_settings/{id}', [
         UserController::class,
@@ -236,12 +235,11 @@ Route::group(['prefix' => 'files'], function () {
   });
 
 
-// });
+  
+  
 
-
-
-
-
+  
+  
 //admin
 Route::controller(TagController::class)->group(function () {
   Route::get("allTags","indexApi");
@@ -296,7 +294,7 @@ Route::controller(SubscriptionApiController::class)->group(function () {
 
 
 // Route::controller(LocalizationsController::class)->group(function () {
-//   Route::get("Localizations", "indexApi");
+  //   Route::get("Localizations", "indexApi");
 //   Route::post("addLang", "storeApi");
 // });
 
@@ -309,4 +307,5 @@ Route::put('/editsettings', [SettingsController::class, 'persistApi']);
 
 
 
+});
 
