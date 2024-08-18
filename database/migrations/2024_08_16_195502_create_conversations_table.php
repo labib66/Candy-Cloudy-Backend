@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->id();
             $table->unsignedInteger('sender_id');// or uuid()
-            $table->foreign('sender_id')->references('id')->on('users');
+            // $table->foreign('sender_id')->references('id')->on('users');
             $table->unsignedInteger('receiver_id');// or uuid()
-            $table->foreign('receiver_id')->references('id')->on('users');
+            // $table->foreign('receiver_id')->references('id')->on('users');
             $table->softDeletes();
             $table->timestamps();
         });
