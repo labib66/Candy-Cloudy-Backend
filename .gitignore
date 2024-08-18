@@ -30,7 +30,6 @@ Thumbs.db
 public/.htaccess
 public/favicon
 public/favicon.ico
-install_files
 /public/hot
 /storage/*.key
 Homestead.json
