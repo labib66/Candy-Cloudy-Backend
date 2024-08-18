@@ -14,12 +14,12 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('conversation_id')->constrained()->cascadeOnDelete();
-            $table->unsignedBigInteger('sender_id')->nullable();// or uuid()
+            $table->unsignedInteger('sender_id')->nullable();// or uuid()
             $table->foreign('sender_id')->references('id')->on('users')->nullOnDelete();
-            $table->unsignedBigInteger('receiver_id')->nullable();// or uuid()
+            $table->unsignedInteger('receiver_id')->nullable();// or uuid()
             $table->foreign('receiver_id')->references('id')->on('users')->nullOnDelete();
             $table->timestamp('read_at')->nullable();
-            //delete actions 
+            //delete actions
             $table->timestamp('receiver_deleted_at')->nullable();
             $table->timestamp('sender_deleted_at')->nullable();
             $table->text('body')->nullable();
