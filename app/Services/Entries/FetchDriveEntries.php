@@ -46,7 +46,7 @@ class FetchDriveEntries
         $this->sharedByMe = !!$this->filters->getAndRemove('sharedByMe');
         $this->sharedOnly =
             $this->getBoolParam('sharedOnly') ||
-            !!$this->filters->getAndRemove('owner_id', '!=', Auth::id());
+            !!$this->filters->getAndRemove('owner_id', '!=', Auth::guard('api')->id());
         $this->searching =
             Arr::get($params, 'query') || !$this->filters->empty();
         $entryIds = Arr::get($params, 'entryIds');

@@ -13,8 +13,8 @@ class UserApiController extends Controller
 
   public function handleUsers(Request $request)
   {
-      $query = User::query();
 
+      $query = User::query();
       if ($request->has('search')) {
         $email = $request->query('search');
           $query->where('email', 'LIKE', '%' . $email . '%');

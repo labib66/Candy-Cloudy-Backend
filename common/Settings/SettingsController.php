@@ -10,7 +10,6 @@ use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Auth;
 use ReflectionClass;
 
 
@@ -228,7 +227,7 @@ class SettingsController extends BaseController
                 $envSettings[$key] = '';
             }
         }
-        
+
         return [
             'server' => $envSettings,
             'client' => $this->settings->getUnflattened(true),

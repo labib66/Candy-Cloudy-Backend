@@ -2,7 +2,7 @@
 
 namespace Common\Workspaces\Rules;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Workspaces\ActiveWorkspace;
 use Illuminate\Validation\Rules\Unique;
 
@@ -14,7 +14,7 @@ class UniqueWorkspacedResource extends Unique
         if (!app(ActiveWorkspace::class)->isPersonal()) {
             $this->where('workspace_id', app(ActiveWorkspace::class)->id);
         } else {
-            $this->where('user_id', $userId ?? Auth::id());
+            $this->where('user_id', $userId ?? Auth::guard('api')->id());
         }
     }
 }

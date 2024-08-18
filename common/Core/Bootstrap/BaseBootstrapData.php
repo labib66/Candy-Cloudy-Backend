@@ -1,7 +1,6 @@
 <?php
 
 namespace Common\Core\Bootstrap;
-
 use App\Models\User;
 use Common\Admin\Appearance\Themes\CssTheme;
 use Common\Auth\Jobs\LogActiveSessionJob;

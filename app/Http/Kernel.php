@@ -85,5 +85,7 @@ class Kernel extends HttpKernel
         'signed' => ValidateSignature::class,
         'throttle' => ThrottleRequests::class,
         'prerenderIfCrawler' => PrerenderIfCrawler::class,
+        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+
     ];
 }

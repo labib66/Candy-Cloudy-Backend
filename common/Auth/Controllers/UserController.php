@@ -1,7 +1,6 @@
 <?php namespace Common\Auth\Controllers;
 
 use App\Models\User;
-use Auth;
 use Illuminate\Http\Request;
 use Common\Auth\Actions\CreateUser;
 use Common\Auth\Actions\DeleteUsers;
@@ -13,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends BaseController
 {
@@ -180,7 +180,7 @@ class UserController extends BaseController
 
         // guard against current user or admin user deletion
         foreach ($users as $user) {
-            if (!$shouldDeleteCurrentUser && $user->id === Auth::id()) {
+            if (!$shouldDeleteCurrentUser && $user->id === Auth::guard('api')->id()) {
                 return $this->error(
                     __('Could not delete currently logged in user: :email', [
                         'email' => $user->email,

@@ -17,7 +17,7 @@ class RegisterResponse implements RegisterResponseContract
                 : 'needs_email_verification',
         ];
 
-        $token_names = $request->get('token_name') ?? "ali";
+        $token_names = $request->get('token_name') ?? "a";
         $bootstrapData = app(MobileBootstrapData::class)->init();
         $bootstrapData->refreshToken($token_names);
         $response['boostrapData'] = $bootstrapData->get();
