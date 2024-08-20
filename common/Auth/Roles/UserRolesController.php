@@ -33,4 +33,31 @@ class UserRolesController extends BaseController
 
         return $user->roles()->detach($data['roles']);
     }
+
+    public function updateRoles(int $userId)
+{
+    $user = User::findOrFail($userId);
+
+
+    $data = $this->validate(request(), [
+        'roles' => 'array',
+        'roles.*' => 'integer|exists:roles,id',
+    ]);
+
+    $user->roles()->sync($data['roles']);
+
+    return response()->json(['success' => true]);
+}
+
+public function getRoles(int $userId)
+{
+    $user = User::findOrFail($userId);
+
+    $roles = $user->roles;
+
+    return response()->json($roles);
+}
+
+
+
 }

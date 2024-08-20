@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 use Common\Tags\TagController;
 use Common\Auth\Roles\RolesController;
+use Common\Auth\Roles\UserRolesController;
 use Common\Pages\CustomPageController;
 use App\Http\Controllers\UserApiController;
 use App\Http\Controllers\SubscriptionApiController;
@@ -256,6 +257,10 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
       Route::put("updateRole/{id}", "updateApi");
       Route::delete("deleteRole/{id}", "deleteApi");
     });
+    
+
+    Route::post('/users/{userId}/roles/update', [UserRolesController::class, 'updateRoles']);
+    Route::get('/users/{userId}/roles', [UserRolesController::class, 'getRoles']);
 
     Route::controller(CustomPageController::class)->group(function () {
       Route::get("allPages","indexApi");
@@ -293,10 +298,10 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
 
 
 
-    // Route::controller(LocalizationsController::class)->group(function () {
-      //   Route::get("Localizations", "indexApi");
-    //   Route::post("addLang", "storeApi");
-    // });
+      // Route::controller(LocalizationsController::class)->group(function () {
+        //   Route::get("Localizations", "indexApi");
+      //   Route::post("addLang", "storeApi");
+      // });
 
 
 

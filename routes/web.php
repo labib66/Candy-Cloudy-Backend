@@ -7,7 +7,7 @@ use Common\Pages\CustomPageController;
 use Illuminate\Support\Facades\Route;
 
 //FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED
-Route::get('/', LandingPageController::class);
+// Route::get('/', LandingPageController::class);
 Route::get('drive/s/{hash}', [ShareableLinksController::class, 'show']);
 
 Route::get('contact', [HomeController::class, 'render']);
