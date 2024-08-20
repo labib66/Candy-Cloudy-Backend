@@ -2,7 +2,7 @@
 
 namespace Common\Database\Datasource;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
 
 class DatasourceFilters
@@ -124,7 +124,7 @@ class DatasourceFilters
     private function replaceValuePlaceholders($value)
     {
         if ($value === '{authId}') {
-            return Auth::id();
+            return Auth::guard('api')->id();
         }
         return $value;
     }

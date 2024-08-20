@@ -3,7 +3,7 @@
 namespace Common\Workspaces;
 
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class ActiveWorkspace
 {
@@ -43,7 +43,7 @@ class ActiveWorkspace
 
     public function owner(): User
     {
-        return $this->workspace()->owner_id === Auth::id()
+        return $this->workspace()->owner_id === Auth::guard('api')->id()
             ? Auth::user()
             : $this->workspace()->owner;
     }
@@ -54,7 +54,7 @@ class ActiveWorkspace
             return true;
         }
         return $this->workspace() &&
-            $this->workspace()->owner_id === Auth::id();
+            $this->workspace()->owner_id === Auth::guard('api')->id();
     }
 
     public function member(int $userId): ?WorkspaceMember

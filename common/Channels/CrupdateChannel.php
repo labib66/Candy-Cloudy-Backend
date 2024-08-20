@@ -14,7 +14,7 @@ class CrupdateChannel
         // can either specify channel model or namespace from which to instantiate
         if (!$initialChannel) {
             $channel = app(Channel::class)->newInstance([
-                'user_id' => Auth::id(),
+                'user_id' => Auth::guard('api')->id(),
             ]);
         } else {
             $channel = $initialChannel;

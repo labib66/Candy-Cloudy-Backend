@@ -2,7 +2,7 @@
 
 namespace Common\Workspaces;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Core\BaseController;
 
 class UserWorkspacesController extends BaseController
@@ -14,7 +14,7 @@ class UserWorkspacesController extends BaseController
 
     public function index()
     {
-        $workspaces = Workspace::forUser(Auth::id())
+        $workspaces = Workspace::forUser(Auth::guard('api')->id())
             ->with(['members'])
             ->withCount(['members'])
             ->limit(20)

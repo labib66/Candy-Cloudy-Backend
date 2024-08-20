@@ -48,7 +48,7 @@ class FoldersController extends BaseController
             $folder = app(CreateFolder::class)->execute([
                 'name' => $name,
                 'parentId' => $parentId,
-                'ownerId' => Auth::id() ?: 1,
+                'ownerId' => Auth::guard('api')->id() ?: 1,
                 // 'ownerId' => 1,
             ]);
         } 

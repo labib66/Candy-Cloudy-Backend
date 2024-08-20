@@ -2,7 +2,7 @@
 
 use App\Models\User;
 use Arr;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Core\BaseModel;
 use Common\Files\Traits\HandlesEntryPaths;
 use Common\Files\Traits\HashesId;
@@ -77,7 +77,7 @@ class FileEntry extends BaseModel
     {
         return $this->morphToMany(Tag::class, 'taggable')->wherePivot(
             'user_id',
-            Auth::id() ?? null,
+            Auth::guard('api')->id() ?? null,
         );
     }
 

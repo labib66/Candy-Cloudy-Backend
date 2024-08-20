@@ -87,7 +87,7 @@ class AppearanceSaver
             $newValue = Arr::except($theme, ['id', 'updated_at']);
             if (!$existing) {
                 CssTheme::create(
-                    array_merge($newValue, ['user_id' => Auth::id()]),
+                    array_merge($newValue, ['user_id' => Auth::guard('api')->id()]),
                 );
             } else {
                 $existing->fill($newValue)->save();

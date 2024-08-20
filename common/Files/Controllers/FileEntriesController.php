@@ -31,7 +31,7 @@ class FileEntriesController extends BaseController
 
     //     // scope files to current user by default if it's an API request
     //     if (!requestIsFromFrontend() && !$params['userId']) {
-    //         $params['userId'] = Auth::id();
+    //         $params['userId'] = Auth::guard('api')->id();
     //     }
 
     //     // $this->authorize('index', FileEntry::class);
@@ -50,7 +50,7 @@ class FileEntriesController extends BaseController
     
         // scope files to current user by default if it's an API request
         if (!requestIsFromFrontend() && !$params['userId']) {
-            $params['userId'] = Auth::id();
+            $params['userId'] = Auth::guard('api')->id();
         }
     
         $query = $this->entry->where('type', '!=' ,'folder');
@@ -163,7 +163,7 @@ class FileEntriesController extends BaseController
     //         $fileEntry = new FileEntry();
     //         $fileEntry->name = $fileName;
     //         $fileEntry->path = $path;
-    //         $fileEntry->user_id = Auth::id(); // افتراض أن المستخدم مسجل دخول
+    //         $fileEntry->user_id = Auth::guard('api')->id(); // افتراض أن المستخدم مسجل دخول
     //         $fileEntry->save();
     
     //         return $this->success(['fileEntry' => $fileEntry], 201);
@@ -196,7 +196,7 @@ class FileEntriesController extends BaseController
     //         $entryIds = $this->request->get('entryIds');
     //     }
 
-    //     $userId = Auth::id() ?: 1;
+    //     $userId = Auth::guard('api')->id() ?: 1;
 
     //     $this->validate($this->request, [
     //         'entryIds' => 'array|exists:file_entries,id',
@@ -233,7 +233,7 @@ class FileEntriesController extends BaseController
             $entryIds = $this->request->get('entryIds');
         }
     
-        $userId = Auth::id() ?: 1;
+        $userId = Auth::guard('api')->id() ?: 1;
     
         $this->validate($this->request, [
             'entryIds' => 'array|exists:file_entries,id',

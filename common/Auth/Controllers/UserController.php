@@ -133,7 +133,7 @@ class UserController extends BaseController
             $relations[] = 'purchase_codes';
         }
 
-        if (Auth::id() === $user->id) {
+        if (Auth::guard('api')->id() === $user->id) {
             $relations[] = 'tokens';
             $user->makeVisible([
                 'two_factor_confirmed_at',

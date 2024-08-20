@@ -2,7 +2,7 @@
 
 namespace Common\Csv;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use Common\Core\BaseController;
 use Illuminate\Http\Request;
@@ -19,8 +19,8 @@ class BaseCsvExportController extends BaseController
     public function download(CsvExport $csvExport): StreamedResponse
     {
         if (
-            !Auth::user()->hasPermission('admin') &&
-            $csvExport->user_id !== Auth::id()
+            !Auth::guard('api')->user()->hasPermission('admin') &&
+            $csvExport->user_id !== Auth::guard('api')->id()
         ) {
             abort(403);
         }

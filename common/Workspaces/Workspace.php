@@ -4,7 +4,7 @@ namespace Common\Workspaces;
 
 use App\Models\User;
 use App\Workspaces\WorkspaceRelationships;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Core\BaseModel;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -103,7 +103,7 @@ class Workspace extends BaseModel
             'owner',
             $this->members->where('is_owner', true)->first(),
         );
-        $this->currentUser = $this->members->where('id', Auth::id())->first();
+        $this->currentUser = $this->members->where('id', Auth::guard('api')->id())->first();
         $this->unsetRelation('members');
 
         // load workspace permissions for current user in case front-end needs it

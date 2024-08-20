@@ -2,7 +2,7 @@
 
 namespace Common\Workspaces;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Auth\Permissions\Permission;
 use Common\Auth\Roles\Role;
 use Common\Auth\Traits\HasAvatarAttribute;
@@ -45,7 +45,7 @@ class WorkspaceMember extends Model
     {
         $builder->where(function (Builder $builder) {
             $builder
-                ->where('workspace_user.user_id', Auth::id())
+                ->where('workspace_user.user_id', Auth::guard('api')->id())
                 ->orWhere('workspace_user.is_owner', true);
         });
 

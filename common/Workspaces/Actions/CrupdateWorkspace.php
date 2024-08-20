@@ -19,7 +19,7 @@ class CrupdateWorkspace
             $workspace = $initialWorkspace;
         } else {
             $workspace = $this->workspace->newInstance([
-                'owner_id' => Auth::id() ?: 1,
+                'owner_id' => Auth::guard('api')->id() ?: 1,
             ]);
         }
 
@@ -32,7 +32,7 @@ class CrupdateWorkspace
         if (!$initialWorkspace) {
             $workspace
                 ->members()
-                ->create(['user_id' => Auth::id() ?: 1, 'is_owner' => true]);
+                ->create(['user_id' => Auth::guard('api')->id() ?: 1, 'is_owner' => true]);
         }
 
         return $workspace;

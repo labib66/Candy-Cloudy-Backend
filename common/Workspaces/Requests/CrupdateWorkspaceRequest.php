@@ -15,7 +15,7 @@ class CrupdateWorkspaceRequest extends BaseFormRequest
             $this->getMethod() === 'PUT' ? $this->route('workspace')->id : '';
         $userId = $this->route('workspace')
             ? $this->route('workspace')->user_id
-            : Auth::id();
+            : Auth::guard('api')->id();
 
         return [
             'name' => [

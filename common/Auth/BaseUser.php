@@ -92,9 +92,9 @@ abstract class BaseUser extends BaseModel implements
     public function toArray(bool $showAll = false): array
     {
         if (
-            (!$showAll && !Auth::id()) ||
-            (Auth::id() !== $this->id &&
-                !Auth::user()?->hasPermission('users.update'))
+            (!$showAll && ! Auth::guard('api')->id()) ||
+            (Auth::guard('api')->id() !== $this->id &&
+                !Auth::guard('api')->id()?->hasPermission('users.update'))
         ) {
             $this->hidden = array_merge($this->hidden, [
                 'first_name',
@@ -409,7 +409,7 @@ abstract class BaseUser extends BaseModel implements
     public function resolveRouteBinding($value, $field = null): ?self
     {
         if ($value === 'me') {
-            $value = Auth::id();
+            $value = Auth::guard('api')->id();
         }
         return $this->where('id', $value)->firstOrFail();
     }

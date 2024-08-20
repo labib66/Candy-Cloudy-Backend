@@ -11,7 +11,7 @@ class CrupdateCssTheme
     {
         if (!$cssTheme) {
             $cssTheme = CssTheme::newInstance([
-                'user_id' => Auth::id(),
+                'user_id' => Auth::guard('api')->id(),
                 'values' => $data['is_dark']
                     ? config('common.themes.dark')
                     : config('common.themes.light'),

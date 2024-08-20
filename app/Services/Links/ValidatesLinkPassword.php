@@ -3,8 +3,8 @@
 namespace App\Services\Links;
 
 use App\Models\ShareableLink;
-use Auth;
-use Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 trait ValidatesLinkPassword
 {
@@ -14,7 +14,7 @@ trait ValidatesLinkPassword
         if (!$link->password) {
             return true;
         }
-        if ($link->user_id === Auth::id()) {
+        if ($link->user_id === Auth::guard('api')->id()) {
             return true;
         }
         return Hash::check(request()->get('password'), $link->password);
