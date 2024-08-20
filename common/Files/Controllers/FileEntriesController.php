@@ -104,7 +104,7 @@ class FileEntriesController extends BaseController
         request()->merge(['parentId' => $parentId]);
     
         $this->validate($this->request, [
-            'file' => 'required|array',
+            'file' => 'required',
             'file.*' => [
                 'required',
                 'file',

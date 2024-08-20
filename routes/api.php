@@ -168,8 +168,6 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
     ]);
 
 
-
-      
       // files
       Route::group(['prefix' => 'files'], function () {
           Route::get('/', [FileEntriesController::class, 'index']);

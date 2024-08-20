@@ -40,50 +40,50 @@ class SettingsController extends BaseController
         $client = $this->settings->getUnflattened(true);
         $data =  [
             'General' =>[
-                'app_url'=> $envSettings['app_url'],
-                'homepage->type'=> $client['homepage']['type'],
-                'themes->default_id'=> $client['themes']['default_id'],
-                'themes->user_change'=> $client['themes']['user_change'],
+                'app_url'=> $envSettings['app_url'] ?? '',
+                'homepage->type'=> $client['homepage']['type'] ?? '',
+                'themes->default_id'=> $client['themes']['default_id'] ?? '',
+                'themes->user_change'=> $client['themes']['user_change'] ?? '',
             ],
             'Drive' =>[
-                'drive->default_view'=> $client['drive']['default_view'],
-                'drive->send_share_notification'=> $client['drive']['send_share_notification'],
-                'share->suggest_emails'=> $client['share']['suggest_emails'],
+                'drive->default_view'=> $client['drive']['default_view'] ?? '',
+                'drive->send_share_notification'=> $client['drive']['send_share_notification'] ?? '',
+                'share->suggest_emails'=> $client['share']['suggest_emails'] ?? '',
             ],
             'Subscriptions' =>[
-                'billing->enable'=> $client['billing']['enable'],
-                'billing->paypal->enable'=> $client['billing']['paypal']['enable'],
-                'billing->paypal_test_mode'=> $client['billing']['paypal_test_mode'],
-                'billing->stripe->enable'=> $client['billing']['stripe']['enable'],
+                'billing->enable'=> $client['billing']['enable'] ?? '',
+                'billing->paypal->enable'=> $client['billing']['paypal']['enable'] ?? '',
+                'billing->paypal_test_mode'=> $client['billing']['paypal_test_mode'] ?? '',
+                'billing->stripe->enable'=> $client['billing']['stripe']['enable'] ?? '',
                 // 'billing->stripe_test_mode'=> $client['billing']['stripe_test_mode'],
-                'billing->accepted_cards'=>$client['billing']['accepted_cards'],
-                'billing->invoice->address'=> $client['billing']['invoice']['address'],
-                'billing->invoice->notes'=> $client['billing']['invoice']['notes'],
+                'billing->accepted_cards'=>$client['billing']['accepted_cards'] ?? '',
+                'billing->invoice->address'=> $client['billing']['invoice']['address'] ?? '',
+                'billing->invoice->notes'=> $client['billing']['invoice']['notes'] ?? '',
             ],
         ];
         // if ($client['billing']['paypal']['enable'] == true) {
-        //     $data['Subscriptions']['paypal']['Client_ID'] = $client['billing']['paypal']['Webhook _ID'];
-        //     $data['Subscriptions']['paypal']['PayPal_Secret'] = $client['billing']['paypal']['Webhook _ID'];
-        //     $data['Subscriptions']['paypal']['Webhook _ID'] = $client['billing']['paypal']['Webhook _ID'];
+        //     $data['Subscriptions']['paypal']['Client_ID'] = $client['billing']['paypal']['Webhook _ID'] ?? '';
+        //     $data['Subscriptions']['paypal']['PayPal_Secret'] = $client['billing']['paypal']['Webhook _ID'] ?? '';
+        //     $data['Subscriptions']['paypal']['Webhook _ID'] = $client['billing']['paypal']['Webhook _ID'] ?? '';
         // }
 
         // if ($client['billing']['stripe']['enable'] == true) {
-        //     $data['Subscriptions']['stripe']['publishable_key'] = $client['billing']['stripe']['Webhook _ID'];
-        //     $data['Subscriptions']['stripe']['stripe_Secret'] = $client['billing']['stripe']['Webhook _ID'];
-        //     $data['Subscriptions']['stripe']['Webhook _ID'] = $client['billing']['stripe']['Webhook _ID'];      
+        //     $data['Subscriptions']['stripe']['publishable_key'] = $client['billing']['stripe']['Webhook _ID'] ?? '';
+        //     $data['Subscriptions']['stripe']['stripe_Secret'] = $client['billing']['stripe']['Webhook _ID'] ?? '';
+        //     $data['Subscriptions']['stripe']['Webhook _ID'] = $client['billing']['stripe']['Webhook _ID'] ?? ''; 
         // }
 
         $data['Localization'] =  [
-                'dates->default_timezone'=> $client['dates']['default_timezone'],
-                'locale->default'=> $client['locale']['default'],
-                'dates->format'=> $client['dates']['format'],
-                'i18n->enable'=> $client['i18n']['enable'],
+                'dates->default_timezone'=> $client['dates']['default_timezone'] ?? '',
+                'locale->default'=> $client['locale']['default'] ?? '',
+                'dates->format'=> $client['dates']['format'] ?? '',
+                'i18n->enable'=> $client['i18n']['enable'] ?? '',
         ];
         $data['Authentication'] =  [
-                'mail_from_address'=> $envSettings['mail_from_address'],
-                'mail->contact_page_address'=> $client['mail']['contact_page_address'],
-                'mail_from_name'=> $envSettings['mail_from_name'],
-                'mail_driver'=> $envSettings['mail_driver'],
+                'mail_from_address'=> $envSettings['mail_from_address'] ?? '',
+                'mail->contact_page_address'=> $client['mail']['contact_page_address'] ?? '',
+                'mail_from_name'=> $envSettings['mail_from_name'] ?? '',
+                'mail_driver'=> $envSettings['mail_driver'] ?? '',
         ];
 
         if ($client['social']['google']['enable'] == true) {
@@ -100,12 +100,12 @@ class SettingsController extends BaseController
         }
         
         $data['uploads'] =  [
-                'uploads->public_driver'=> $client['uploads']['public_driver'],
-                'uploads->uploads_driver'=> $client['uploads']['uploads_driver'],
-                'static_file_delivery'=> $envSettings['static_file_delivery'],
-                'uploads->chunk_size'=> $client['uploads']['chunk_size'],
-                'uploads->max_size'=> $client['uploads']['max_size'],
-                'uploads->available_space'=> $client['uploads']['available_space'],
+                'uploads->public_driver'=> $client['uploads']['public_driver'] ?? '',
+                'uploads->uploads_driver'=> $client['uploads']['uploads_driver'] ?? '',
+                'static_file_delivery'=> $envSettings['static_file_delivery'] ?? '',
+                'uploads->chunk_size'=> $client['uploads']['chunk_size'] ?? '',
+                'uploads->max_size'=> $client['uploads']['max_size'] ?? '',
+                'uploads->available_space'=> $client['uploads']['available_space'] ?? '',
                 'uploads->allowed_extensions'=> $client['uploads']['allowed_extensions'] ?? '',
                 'uploads->blocked_extensions'=> $client['uploads']['blocked_extensions']  ?? '',
         ];
