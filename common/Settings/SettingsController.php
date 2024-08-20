@@ -25,7 +25,6 @@ class SettingsController extends BaseController
 
     public function indexApi()
     {
-        return "aa";
         // $this->authorize('index', Setting::class);
         $envSettings = $this->dotEnv->load('.env');
         $envSettings['newAppUrl'] = app(AppUrl::class)->newAppUrl;
