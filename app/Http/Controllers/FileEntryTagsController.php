@@ -23,7 +23,7 @@ class FileEntryTagsController extends BaseController
             ->take(15)
             ->get()
             ->where('type', 'custom')
-            ->where('user_id', Auth::id())
+            ->where('user_id', Auth::guard('api')->id())
             ->map(fn(Tag $model) => $model->toNormalizedArray())
             ->values();
 
@@ -37,12 +37,12 @@ class FileEntryTagsController extends BaseController
         $tagNames = request('tags', []);
 
         $tagIds = app(Tag::class)
-            ->insertOrRetrieve($tagNames, 'custom', Auth::id())
+            ->insertOrRetrieve($tagNames, 'custom', Auth::guard('api')->id())
             ->pluck('id');
 
         $fileEntry->tags()->sync(
             $tagIds->mapWithKeys(function ($id) {
-                return [$id => ['user_id' => Auth::id()]];
+                return [$id => ['user_id' =>Auth::guard('api')->id()]];
             }),
         );
 

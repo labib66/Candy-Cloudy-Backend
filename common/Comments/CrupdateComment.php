@@ -3,7 +3,7 @@
 namespace Common\Comments;
 
 use App\Models\User;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Comments\Notifications\CommentReceivedReply;
 use Illuminate\Support\Arr;
 
@@ -15,7 +15,7 @@ class CrupdateComment
     ): Comment {
         if (!$initialComment) {
             $comment = new Comment([
-                'user_id' => Auth::id(),
+                'user_id' => Auth::guard('api')->id(),
             ]);
         } else {
             $comment = $initialComment;
@@ -41,7 +41,7 @@ class CrupdateComment
         if (
             !$initialComment &&
             $inReplyTo &&
-            $inReplyTo['user']['id'] !== Auth::id()
+            $inReplyTo['user']['id'] !== Auth::guard('api')->id()
         ) {
             app(User::class)
                 ->find($inReplyTo['user']['id'])

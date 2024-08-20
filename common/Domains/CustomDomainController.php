@@ -3,7 +3,7 @@
 namespace Common\Domains;
 
 use Arr;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Core\AppUrl;
 use Common\Core\BaseController;
 use Common\Database\Datasource\Datasource;
@@ -58,7 +58,7 @@ class CustomDomainController extends BaseController
 
         $domain = $this->customDomain->create([
             'host' => $this->request->get('host'),
-            'user_id' => Auth::id(),
+            'user_id' => Auth::guard('api')->id(),
             'global' => $this->request->get('global', false),
         ]);
 
@@ -82,7 +82,7 @@ class CustomDomainController extends BaseController
         ]);
 
         $data = $this->request->all();
-        $data['user_id'] = Auth::id();
+        $data['user_id'] = Auth::guard('api')->id();
         $data['global'] = $this->request->get('global', $customDomain->global);
         $customDomain->update($data);
 

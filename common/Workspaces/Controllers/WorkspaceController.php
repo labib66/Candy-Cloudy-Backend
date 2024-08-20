@@ -55,7 +55,7 @@ class WorkspaceController extends BaseController
 
         if (
             $workspace->currentUser = $workspace->members
-                ->where('id', Auth::id())
+                ->where('id', Auth::guard('api')->id())
                 ->first()
         ) {
             $workspace->currentUser->load('permissions');

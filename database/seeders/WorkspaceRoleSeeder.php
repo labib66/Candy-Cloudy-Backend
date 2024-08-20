@@ -14,7 +14,6 @@ class WorkspaceRoleSeeder extends Seeder
     public function __construct(private Role $role)
     {
     }
-
     public function run()
     {
         if ($this->role->where('type', 'workspace')->count() === 0) {

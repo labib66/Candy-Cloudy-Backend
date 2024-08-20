@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Resources;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -23,6 +23,7 @@ class RoleResource extends JsonResource
           'type' => $this->type,
           // 'internal' => $this->internal,
           'description' => $this->description,
+          // 'a'=> Auth::guard('api')->id(),
 
         ];
     }

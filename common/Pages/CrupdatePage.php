@@ -11,7 +11,7 @@ class CrupdatePage
     public function execute(CustomPage $page, array $data): CustomPage
     {
         if (!$page->exists) {
-            $data['user_id'] = Auth::id();
+            $data['user_id'] = Auth::guard('api')->id();
             $data['slug'] = $data['slug'] ?? slugify(Arr::get($data, 'title'));
             $data['workspace_id'] = app(ActiveWorkspace::class)->id ?? 0;
         }

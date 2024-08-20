@@ -82,7 +82,7 @@ class CustomPageController extends BaseController
                 'string',
                 'min:3',
                 'max:250',
-                Rule::unique('custom_pages')->where('user_id', Auth::id()),
+                Rule::unique('custom_pages')->where('user_id', Auth::guard('api')->id()),
             ],
             'slug' => [
                 'nullable',

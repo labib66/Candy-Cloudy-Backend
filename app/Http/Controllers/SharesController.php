@@ -160,13 +160,13 @@ class SharesController extends BaseController
     ): JsonResponse {
         $userId =
             $this->request->get('userId') === 'me'
-            ? Auth::id()
+            ? Auth::guard('api')->id()
             : (int) $this->request->get('userId');
         $entryIds = explode(',', $entryIds);
 
         // there's no need to authorize if user is
         // trying to remove himself from the entry
-        if ($userId !== Auth::id()) {
+        if ($userId !== Auth::guard('api')->id() ) {
             // $this->authorize('update', [FileEntry::class, $entryIds]);
         }
 

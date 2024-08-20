@@ -238,10 +238,9 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
   
     });
 
-
     //admin
       
-  Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess','admin']], function () {
+  // Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess','admin']], function () {
     Route::controller(TagController::class)->group(function () {
       Route::get("allTags","indexApi");
       Route::get('/showTag/{id}', 'showApi'); 
@@ -306,6 +305,6 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
       Route::put('/editsettings', [SettingsController::class, 'persistApi']);
 
 
-    });
+    // });
 
 

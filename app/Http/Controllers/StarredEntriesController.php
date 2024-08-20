@@ -25,7 +25,7 @@ class StarredEntriesController extends BaseController
         // $this->authorize('index', Tag::class);
              // $this->authorize('index', Tag::class);
              $results = DB::table('taggables')
-             ->where('user_id', Auth::id() ?? null)
+             ->where('user_id',Auth::guard('api')->id() ?? null)
              ->orderBy('id', 'desc') // Order by ID descending
              ->limit(10) // Limit to 10 results
             ->get();

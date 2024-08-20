@@ -2,7 +2,7 @@
 
 namespace Common\Reports;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Common\Core\BaseController;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Arr;
@@ -22,7 +22,7 @@ class ReportController extends BaseController
 
         $this->authorize('show', $model);
 
-        $userId = Auth::id();
+        $userId = Auth::guard('api')->id();
         $userIp = getIp();
 
         // if we can't match current user, bail
@@ -64,7 +64,7 @@ class ReportController extends BaseController
             ->reports()
             ->where(
                 fn(Builder $query) => $query
-                    ->where('user_id', Auth::id())
+                    ->where('user_id', Auth::guard('api')->id())
                     ->orWhere('user_ip', getIp()),
             )
             ->delete();

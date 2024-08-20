@@ -2,7 +2,7 @@
 
 namespace Common\Votes;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Str;
 
@@ -10,7 +10,7 @@ class StoreVote
 {
     public function execute($model, string $newVoteType, ?string $userIp)
     {
-        $userId = Auth::id();
+        $userId = Auth::guard('api')->id();
 
         // if we can't match current user, bail
         if (!$userId && !$userIp) {

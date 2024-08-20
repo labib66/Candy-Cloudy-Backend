@@ -29,7 +29,7 @@ class BanController extends BaseController
                 : Arr::get($data, 'ban_until'),
             'comment' => Arr::get($data, 'comment'),
             'created_by_type' => User::MODEL_TYPE,
-            'created_by_id' => Auth::id(),
+            'created_by_id' =>Auth::guard('api')->id(),
         ]);
         $user->fill(['banned_at' => now()])->save();
 
