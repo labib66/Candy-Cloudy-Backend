@@ -30,10 +30,9 @@ class UserController extends BaseController
         return $this->success(['pagination' => $pagination]);
     }
 
-    public function user_settings($id)
+    public function user_settings()
     {
-        // $this->authorize('index', User::class);
-
+        $id = Auth::guard('api')->id();
         $user = User::where('id', $id)->first();
         if (!$user) {
             return response()->json(['error' => 'User not found'], 404);
@@ -53,8 +52,11 @@ class UserController extends BaseController
         return $this->success(['pagination' => $data]);
     }
 
-    public function update_user_settings($id, Request $request)
+    public function update_user_settings(Request $request)
     {
+
+        $id = Auth::guard('api')->id();
+
         $this->validate($request, [
             'username' => 'nullable|string|max:255',
             'email' => 'nullable|string|email|max:255|unique:users,email,' . $id,
@@ -83,7 +85,7 @@ class UserController extends BaseController
         $user->update($request->except('avatar'));
         $user->save();
     
-        return response()->json(['success' => true], 200);
+        return  $user;
     }
 
     public function updatePassword($id , Request $request)

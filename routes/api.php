@@ -35,12 +35,12 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
     // , 'verified', 'verifyApiAccess'
     // Route::group(['middleware' => ['optionalAuth:sanctum', 'verified', 'verifyApiAccess']], function () {
     //acount Setting
-        Route::get('user_settings/{id}', [
+        Route::get('user_settings', [
           UserController::class,
           'user_settings',
         ]);
         
-        Route::post('user_settings/{id}', [
+        Route::post('user_settings', [
           UserController::class,
           'update_user_settings',
         ]);
