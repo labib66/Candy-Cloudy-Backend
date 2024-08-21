@@ -308,9 +308,12 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
       Route::get('/allsettings', [SettingsController::class, 'indexApi']);
       Route::put('/editsettings', [SettingsController::class, 'persistApi']);
 
-        //ali
-        Route::get('admin/reports/visitors/{selected?}', [AnalyticsController::class, 'visitorsReport']);
-        Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
+
+
+
+         //ali
+         Route::get('admin/reports/visitors', [AnalyticsController::class, 'visitorsReport']);
+         Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
 
 
     // });
