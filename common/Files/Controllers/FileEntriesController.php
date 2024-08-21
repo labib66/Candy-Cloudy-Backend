@@ -28,46 +28,51 @@ class FileEntriesController extends BaseController
     // {
     //     $params = $this->request->all();
     //     $params['userId'] = $this->request->get('userId');
-
+    
     //     // scope files to current user by default if it's an API request
     //     if (!requestIsFromFrontend() && !$params['userId']) {
-    //         $params['userId'] = Auth::guard('api')->id();
+    //         $params['userId'] =  Auth::guard('api')->id();
     //     }
-
-    //     // $this->authorize('index', FileEntry::class);
-
-    //     $dataSource = new Datasource($this->entry->with(['users']), $params);
-
+    
+    //     $query = $this->entry->where('type', '!=' ,'folder');
+    
+    //     // add user scope if userId is specified
+    //     if ($params['userId']) {
+    //         $query->where('owner_id', $params['userId']);
+    //     }
+    
+    //     // create datasource with filtered query
+    //     $dataSource = new Datasource($query, $params);
+    
+    //     // paginate the results
     //     $pagination = $dataSource->paginate();
-
+    
     //     return $this->success(['pagination' => $pagination]);
     // }
+
 
     public function index()
     {
         $params = $this->request->all();
         $params['userId'] = $this->request->get('userId');
     
-        // scope files to current user by default if it's an API request
+        $query = $this->entry->where('type', '!=', 'folder');
+        
+        // Scope files to current user by default if it's an API request
         if (!requestIsFromFrontend() && !$params['userId']) {
-            $params['userId'] = Auth::guard('api')->id();
+            $query->where('owner_id', Auth::guard('api')->id());
         }
     
-        $query = $this->entry->where('type', '!=' ,'folder');
+        // Create datasource with filtered query
+        // Uncomment and adjust the instantiation of Datasource if it exists
+        // $dataSource = new Datasource($query, $params);
     
-        // add user scope if userId is specified
-        if ($params['userId']) {
-            $query->where('user_id', $params['userId']);
-        }
-    
-        // create datasource with filtered query
-        $dataSource = new Datasource($query, $params);
-    
-        // paginate the results
-        $pagination = $dataSource->paginate();
+        // Assuming you want to paginate the results directly from the query
+        $pagination = $query->paginate($params['perPage'] ?? 15); // Default perPage to 15 if not provided
     
         return $this->success(['pagination' => $pagination]);
     }
+    
     
 
 

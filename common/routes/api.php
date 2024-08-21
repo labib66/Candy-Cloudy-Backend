@@ -217,16 +217,16 @@ Route::group(['prefix' => 'v1'], function () {
         // ADMIN
         Route::get('uploads/server-max-file-size', [ServerMaxUploadSizeController::class, 'index']);
         Route::get('admin/reports', [AnalyticsController::class, 'report']);
-        //ali
-        Route::get('admin/reports/visitors', [AnalyticsController::class, 'visitorsReport']);
-        Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
-        Route::prefix('admin/reports/analytics')->group(function () {
-            Route::get('page-views', [AnalyticsController::class, 'pageViewsReport']);
-            Route::get('browsers', [AnalyticsController::class, 'browsersReport']);
-            Route::get('locations', [AnalyticsController::class, 'locationsReport']);
-            Route::get('devices', [AnalyticsController::class, 'devicesReport']);
-            Route::get('platforms', [AnalyticsController::class, 'platformsReport']);
-        });
+        // //ali
+        // Route::get('admin/reports/visitors', [AnalyticsController::class, 'visitorsReport']);
+        // Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
+        // Route::prefix('admin/reports/analytics')->group(function () {
+        //     Route::get('page-views', [AnalyticsController::class, 'pageViewsReport']);
+        //     Route::get('browsers', [AnalyticsController::class, 'browsersReport']);
+        //     Route::get('locations', [AnalyticsController::class, 'locationsReport']);
+        //     Route::get('devices', [AnalyticsController::class, 'devicesReport']);
+        //     Route::get('platforms', [AnalyticsController::class, 'platformsReport']);
+        // });
         
         Route::get('admin/reports/header', [AnalyticsController::class, 'headerReport']);
         Route::get('admin/reports/sessions', [AnalyticsController::class, 'sessionsReport']);

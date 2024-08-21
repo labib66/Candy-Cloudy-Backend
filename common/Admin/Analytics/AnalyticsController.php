@@ -21,7 +21,7 @@ class AnalyticsController extends BaseController
     ) {
     }
 
-    public function visitorsReport()
+    public function visitorsReport($selected = null)
     {
         $types = explode(',', $this->request->get('types', 'visitors'));
         $dateRange = $this->getDateRange();
@@ -47,9 +47,49 @@ class AnalyticsController extends BaseController
                 )->execute($reportParams);
             }
         }
-        return $this->success($response);
-        // return $this->success($response['visitorsReport']['browsers']);
+        
+        if ($selected) {
+            if (isset($response['visitorsReport'][$selected])) {
+                return $this->success($response['visitorsReport'][$selected]);
+            } else {
+                return $this->success($response['visitorsReport']);
+            }
+        }
+            return $this->success($response['visitorsReport']);
     }
+
+    // public function visitorsReport($selected = null)
+    // {
+    //     $types = explode(',', $this->request->get('types', 'visitors'));
+    //     $dateRange = $this->getDateRange();
+    //     $cacheKey = sprintf(
+    //         '%s-%s',
+    //         $dateRange->getCacheKey(),
+    //         implode(',', $types),
+    //     );
+    
+    //     $response = [];
+    //     $reportParams = ['dateRange' => $dateRange];
+    
+    //     if (in_array('visitors', $types)) {
+    //         try {
+    //             $report = (new BuildGoogleAnalyticsReport())->execute($reportParams);
+    //             $response['visitorsReport'] = $report;
+    //         } catch (Exception $e) {
+    //             $response['visitorsReport'] = app(BuildDemoAnalyticsReport::class)->execute($reportParams);
+    //         }
+    //     }
+    //     return $this->success($response['visitorsReport'][$selected]);
+    //     if ($selected) {
+    //         if (isset($response['visitorsReport'][$selected])) {
+    //             return $this->success($response['visitorsReport'][$selected]);
+    //         } else {
+    //             return $this->success($response['visitorsReport']);
+    //         }
+    //     }
+    //         return $this->success($response['visitorsReport']);
+    // }
+    
 
     public function mainReport()
     {
@@ -141,7 +181,6 @@ class AnalyticsController extends BaseController
     public function report()
     {
         // $this->authorize('index', 'ReportPolicy');
-
         $types = explode(',', $this->request->get('types', 'visitors,header'));
         $dateRange = $this->getDateRange();
         $cacheKey = sprintf(

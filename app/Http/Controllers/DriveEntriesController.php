@@ -37,7 +37,7 @@ class DriveEntriesController extends FileEntriesController
         // $this->middleware('auth');
 
         $params = $this->request->all();
-        $params['userId'] = Auth::guard('api')->id() ?: 1;
+        $params['userId'] = Auth::guard('api')->id() ?: null;
 
         // $this->authorize('index', [FileEntry::class, null, $params['userId']]);
 

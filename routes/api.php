@@ -28,6 +28,7 @@ use Common\Settings\SettingsController;
 use Common\Workspaces\Controllers\WorkspaceController;
 use Common\Files\Controllers\FileEntriesController;
 use Common\Files\Controllers\RestoreDeletedEntriesController;
+use Common\Admin\Analytics\AnalyticsController;
 
 // prettier-ignore
 Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], function () {
@@ -306,6 +307,10 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
       Route::get('/settings', [SettingsController::class, 'index']);
       Route::get('/allsettings', [SettingsController::class, 'indexApi']);
       Route::put('/editsettings', [SettingsController::class, 'persistApi']);
+
+        //ali
+        Route::get('admin/reports/visitors/{selected?}', [AnalyticsController::class, 'visitorsReport']);
+        Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
 
 
     // });
