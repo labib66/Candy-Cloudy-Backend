@@ -90,12 +90,12 @@ class UserController extends BaseController
 
     public function updatePassword($id , Request $request)
     { 
-      $user = User::find($id);
-      if (!$user) {
+        $user = User::find($id);
+        if (!$user) {
         return response()->json([
             'error' => 'User not found',
         ], 404);
-      }
+    }
 
       $validatedData = Validator::make($request->all(), [
         'old_password' => 'required|string',

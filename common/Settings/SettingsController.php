@@ -80,23 +80,24 @@ class SettingsController extends BaseController
                 'i18n->enable'=> $client['i18n']['enable'] ?? '',
         ];
         $data['Authentication'] =  [
-                'mail_from_address'=> $envSettings['mail_from_address'] ?? '',
-                'mail->contact_page_address'=> $client['mail']['contact_page_address'] ?? '',
-                'mail_from_name'=> $envSettings['mail_from_name'] ?? '',
-                'mail_driver'=> $envSettings['mail_driver'] ?? '',
+            'require_email_confirmation'=> $client['require_email_confirmation']  ?? '',
+            'registration->disable'=> $client['registration']['disable']  ?? '',
+            'single_device_login'=> $client['single_device_login']  ?? '',
+            'social->compact_buttons'=> $client['social']['compact_buttons']  ?? '',
+            'auth->domain_blacklist'=> $client['auth']['domain_blacklist']  ?? '',
         ];
 
         if ($client['social']['google']['enable'] == true) {
-            $data['Authentication']['google']['GOOGLE_ID'] = $envSettings['google_id'] ?? '';
-            $data['Authentication']['google']['GOOGLE_SECRET'] = $envSettings['google_secret'] ?? '';
+            $data['Authentication']['google']['google_id'] = $envSettings['google_id'] ?? '';
+            $data['Authentication']['google']['google_secret'] = $envSettings['google_secret'] ?? '';
         }
         if ($client['social']['twitter']['enable'] == true) {
-            $data['Authentication']['twitter']['GOOGLE_ID'] = $envSettings['twitter_id'] ?? '';
-            $data['Authentication']['twitter']['GOOGLE_SECRET'] = $envSettings['twitter_secret'] ?? '';
+            $data['Authentication']['twitter']['twitter_id'] = $envSettings['twitter_id'] ?? '';
+            $data['Authentication']['twitter']['twitter_secret'] = $envSettings['twitter_secret'] ?? '';
         }
         if ($client['social']['facebook']['enable'] == true) {
-            $data['Authentication']['facebook']['GOOGLE_ID'] = $envSettings['facebook_id'] ?? '';
-            $data['Authentication']['facebook']['GOOGLE_SECRET'] = $envSettings['facebook_secret'] ?? '';
+            $data['Authentication']['facebook']['facebook_id'] = $envSettings['facebook_id'] ?? '';
+            $data['Authentication']['facebook']['facebook_secret'] = $envSettings['facebook_secret'] ?? '';
         }
         
         $data['uploads'] =  [
@@ -118,11 +119,10 @@ class SettingsController extends BaseController
             $data['uploads']['s3']['storage_s3_endpoint'] = $envSettings['storage_s3_endpoint'] ?? '';
         }
         $data['Outgoing_email_settings'] =  [
-                'require_email_confirmation'=> $client['require_email_confirmation']  ?? '',
-                'registration->disable'=> $client['registration']['disable']  ?? '',
-                'single_device_login'=> $client['single_device_login']  ?? '',
-                'social->compact_buttons'=> $client['social']['compact_buttons']  ?? '',
-                'auth->domain_blacklist'=> $client['auth']['domain_blacklist']  ?? '',
+                'mail_from_address'=> $envSettings['mail_from_address'] ?? '',
+                'mail->contact_page_address'=> $client['mail']['contact_page_address'] ?? '',
+                'mail_from_name'=> $envSettings['mail_from_name'] ?? '',
+                'mail_driver'=> $envSettings['mail_driver'] ?? '',
         ];
 
         // $data['cache'] =  [

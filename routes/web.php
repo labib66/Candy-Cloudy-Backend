@@ -7,7 +7,7 @@ use Common\Pages\CustomPageController;
 use Illuminate\Support\Facades\Route;
 
 //FRONT-END ROUTES THAT NEED TO BE PRE-RENDERED
-Route::get('/',[HomeController::class, 'render']);
+// Route::get('/', LandingPageController::class);
 Route::get('drive/s/{hash}', [ShareableLinksController::class, 'show']);
 
 Route::get('contact', [HomeController::class, 'render']);
@@ -18,4 +18,6 @@ Route::get('forgot-password', [HomeController::class, 'render']);
 Route::get('pricing', '\Common\Billing\PricingPageController');
 
 //CATCH ALL ROUTES AND REDIRECT TO HOME
-Route::fallback([HomeController::class, 'render']);
+Route::fallback(function(){
+    return view('welcome');
+});

@@ -505,14 +505,14 @@ return [
     [
         'name' => 'homepage.appearance',
         'value' => json_encode([
-            'headerTitle' => 'A new home for your files.',
+            'headerTitle' => 'BeDrive. A new home for your files.',
             'headerSubtitle' =>
                 'Register or Login now to upload, backup, manage and access your files on any device, from anywhere, free.',
             'headerImage' => 'images/homepage/homepage-header-bg.jpg',
             'headerImageOpacity' => 1,
             'headerOverlayColor1' => null,
             'headerOverlayColor2' => null,
-            'footerTitle' => 'Get started with us',
+            'footerTitle' => 'Get started with BeDrive',
             'footerSubtitle' => null,
             'footerImage' => 'images/homepage/homepage-footer-bg.svg',
             'actions' => [
@@ -538,7 +538,7 @@ return [
                 [
                     'title' => 'See your stuff anywhere',
                     'subtitle' =>
-                        'Your files in Beusive can be reached from any smartphone, tablet, or computer.',
+                        'Your files in BeDrive can be reached from any smartphone, tablet, or computer.',
                     'image' => 'images/homepage/web-devices.svg',
                 ],
                 [
@@ -553,13 +553,13 @@ return [
                     'title' => 'Keep your files safe',
                     'image' => 'images/homepage/homepage-feature-1.jpg',
                     'description' =>
-                        'If something happens to your device, you don\'t have to worry about losing your files or photos – they\'re in your Beuse. And Beuse is encrypted using SSL.',
+                        'If something happens to your device, you don\'t have to worry about losing your files or photos – they\'re in your BeDrive. And BeDrive is encrypted using SSL.',
                 ],
                 [
                     'title' => 'Reliable storage and fast transfers',
                     'image' => 'images/homepage/homepage-feature-2.jpg',
                     'description' =>
-                        'We make secure cloud storage simple and convenient. Create a free Bee account today!',
+                        'We make secure cloud storage simple and convenient. Create a free BeDrive account today!',
                 ],
             ],
         ]),
