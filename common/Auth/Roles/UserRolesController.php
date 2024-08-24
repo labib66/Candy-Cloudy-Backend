@@ -2,11 +2,13 @@
 
 use App\Models\User;
 use Common\Core\BaseController;
+use Illuminate\Support\Facades\Auth;
 
 class UserRolesController extends BaseController
 {
-    public function attach(int $userId)
+    public function attach()
     {
+        $userId = Auth::guard('api')->id();
         $user = User::findOrFail($userId);
 
         $this->authorize('update', $user);
@@ -21,8 +23,9 @@ class UserRolesController extends BaseController
         return $this->success();
     }
 
-    public function detach(int $userId)
+    public function detach()
     {
+        $userId = Auth::guard('api')->id();
         $user = User::findOrFail($userId);
 
         $this->authorize('update', $user);
@@ -34,29 +37,32 @@ class UserRolesController extends BaseController
         return $user->roles()->detach($data['roles']);
     }
 
-    public function updateRoles(int $userId)
-{
-    $user = User::findOrFail($userId);
 
+    public function updateRoles($userId)
+    {
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }    
+        $data = $this->validate(request(), [
+            'roles' => 'array',
+            'roles.*' => 'integer|exists:roles,id',
+        ]);
+        $user->roles()->sync($data['roles']);
+        return response()->json(['success' => true]);
+    }
+    
+    public function getRoles($userId)
+    {
+        $user = User::find($userId);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        $roles = $user->roles;
+        return response()->json($roles);
+    }
+    
 
-    $data = $this->validate(request(), [
-        'roles' => 'array',
-        'roles.*' => 'integer|exists:roles,id',
-    ]);
-
-    $user->roles()->sync($data['roles']);
-
-    return response()->json(['success' => true]);
-}
-
-public function getRoles(int $userId)
-{
-    $user = User::findOrFail($userId);
-
-    $roles = $user->roles;
-
-    return response()->json($roles);
-}
 
 
 

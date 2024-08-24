@@ -258,9 +258,6 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
     });
     
 
-    Route::post('/users/{userId}/roles/update', [UserRolesController::class, 'updateRoles']);
-    Route::get('/users/{userId}/roles', [UserRolesController::class, 'getRoles']);
-
     Route::controller(CustomPageController::class)->group(function () {
       Route::get("allPages","indexApi");
       Route::get("showPage/{id}","showApi");
@@ -311,11 +308,15 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
 
 
 
-         //ali
-         Route::get('admin/reports/visitors', [AnalyticsController::class, 'visitorsReport']);
-         Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
+        //reports
+        Route::get('admin/reports/visitors/{selected?}', [AnalyticsController::class, 'visitorsReport']);
+        Route::get('admin/reports/mainReport', [AnalyticsController::class, 'mainReport']);
+
+
+        // rolesuser
+        Route::post('/users/roles/update/{id?}', [UserRolesController::class, 'updateRoles']);
+        Route::get('/users/roles/{id?}', [UserRolesController::class,'getRoles']);
+
 
 
     // });
-
-

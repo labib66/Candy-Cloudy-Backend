@@ -89,6 +89,7 @@ class FileEntriesController extends BaseController
     public function show(FileEntry $fileEntry, FileResponseFactory $response)
     {
         // $this->authorize('show', $fileEntry);
+        
         try {
             return $response->create($fileEntry);
         } catch (FileNotFoundException $e) {
@@ -149,33 +150,6 @@ class FileEntriesController extends BaseController
         }
     }
 
-
-    // public function store()
-    // {
-    //     $this->validate($this->request, [
-    //         'file' => 'required|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
-    //     ]);
-    //     // return 4;
-    //     // تحقق من وجود الملف في الطلب
-    //     if ($this->request->hasFile('file')) {
-    //         $file = $this->request->file('file');
-    //         $fileName = time() . '.' . $file->getClientOriginalExtension();
-    
-    //         // تخزين الملف في مجلد 'public/avatars'
-    //         $path = $file->storeAs('avatars', $fileName, 'public');
-    
-    //         // إنشاء سجل جديد في قاعدة البيانات
-    //         $fileEntry = new FileEntry();
-    //         $fileEntry->name = $fileName;
-    //         $fileEntry->path = $path;
-    //         $fileEntry->user_id = Auth::guard('api')->id(); // افتراض أن المستخدم مسجل دخول
-    //         $fileEntry->save();
-    
-    //         return $this->success(['fileEntry' => $fileEntry], 201);
-    //     }
-    
-    //     return $this->error('File not uploaded', [400]);
-    // }
     
     public function update(int $entryId)
     {
