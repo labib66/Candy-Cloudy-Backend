@@ -23,7 +23,6 @@ class WorkspaceController extends BaseController
     public function index()
     {
         $userId = $this->request->get('userId');
-        // $this->authorize('index', [Workspace::class, $userId]);
 
         $builder = $this->workspace
             ->newQuery()
@@ -50,7 +49,6 @@ class WorkspaceController extends BaseController
 
     public function show(Workspace $workspace)
     {
-        // $this->authorize('show', $workspace);
         $workspace->load(['invites', 'members']);
 
         if (
@@ -65,7 +63,6 @@ class WorkspaceController extends BaseController
 
     public function store(CrupdateWorkspaceRequest $request)
     {
-        // $this->authorize('store', Workspace::class);
         $workspace = app(CrupdateWorkspace::class)->execute($request->all());
         $workspace->loadCount('members');
         $workspace
@@ -83,8 +80,6 @@ class WorkspaceController extends BaseController
         Workspace $workspace,
         CrupdateWorkspaceRequest $request
     ) {
-        // $this->authorize('update', $workspace);
-
         $workspace = app(CrupdateWorkspace::class)->execute(
             $request->all(),
             $workspace,
@@ -96,7 +91,6 @@ class WorkspaceController extends BaseController
     public function destroy(string $ids)
     {
         $workspaceIds = explode(',', $ids);
-        // $this->authorize('destroy', [Workspace::class, $workspaceIds]);
 
         app(DeleteWorkspaces::class)->execute($workspaceIds);
 
