@@ -88,8 +88,9 @@ class UserController extends BaseController
         return  $user;
     }
 
-    public function updatePassword($id , Request $request)
+    public function updatePassword(Request $request)
     { 
+        $id = Auth::guard('api')->id();
         $user = User::find($id);
         if (!$user) {
         return response()->json([
@@ -100,7 +101,7 @@ class UserController extends BaseController
       $validatedData = Validator::make($request->all(), [
         'old_password' => 'required|string',
         'new_password' => 'required|string|min:8|confirmed',
-        'new_password_confirmation' => 'required|string|min:8|confirmed',
+        'new_password_confirmation' => 'required|string|min:8',
   
       ]);
       if ($validatedData->fails()) {

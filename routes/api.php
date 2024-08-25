@@ -46,7 +46,7 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
           'update_user_settings',
         ]);
     
-        Route::post('user_settings/password/{id}', [
+        Route::post('user_settings/password', [
           UserController::class,
           'updatePassword',
         ]);
