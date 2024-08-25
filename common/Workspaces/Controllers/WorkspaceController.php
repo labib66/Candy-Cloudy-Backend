@@ -22,8 +22,7 @@ class WorkspaceController extends BaseController
 
     public function index()
     {
-        $userId = $this->request->get('userId');
-
+        $userId = Auth::guard('api')->id();
         $builder = $this->workspace
             ->newQuery()
             ->withCount(['members'])

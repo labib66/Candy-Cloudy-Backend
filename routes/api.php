@@ -317,6 +317,4 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
         Route::post('/users/roles/update/{id?}', [UserRolesController::class, 'updateRoles']);
         Route::get('/users/roles/{id?}', [UserRolesController::class,'getRoles']);
 
-
-
     // });
