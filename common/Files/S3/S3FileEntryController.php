@@ -27,8 +27,6 @@ class S3FileEntryController extends BaseController
 
         $payload = new FileEntryPayload($validatedData);
 
-        $this->authorize('store', [FileEntry::class, $payload->parentId]);
-
         $fileEntry = app(CreateFileEntry::class)->execute($payload);
 
         event(new FileUploaded($fileEntry));

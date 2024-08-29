@@ -2,11 +2,11 @@
 
 namespace Common\Files;
 
-use Arr;
 use Common\Files\Traits\GetsEntryTypeFromMime;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
-use Str;
+use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class FileEntryPayload
 {
@@ -29,10 +29,12 @@ class FileEntryPayload
     public bool $public;
     public string $visibility;
     public int|null $ownerId;
+    public $filePath;
 
     public function __construct(array $data)
     {
         $this->prepareData($data);
+        $this->filePath = $data['filePath'] ?? null;
         $this->diskName = Arr::get($data, 'disk', 'uploads');
         $this->public = $this->diskName === 'public';
         $this->prepareEntryPayload();
@@ -64,7 +66,7 @@ class FileEntryPayload
         $this->relativePath = $this->getRelativePath();
         $this->diskPrefix = $this->getDiskPrefix();
         $this->parentId = (int) Arr::get($this->data, 'parentId') ?: null;
-        $this->ownerId = (int) Arr::get($this->data, 'ownerId') ?: auth('sanctum')->user()->id ?: 1;
+        $this->ownerId = (int) Arr::get($this->data, 'ownerId') ?: Auth::guard('api')->id() ?: 1;
         $this->size =
             $this->data['file_size'] ??
             ($this->data['size'] ?? $this->data['clientSize']);

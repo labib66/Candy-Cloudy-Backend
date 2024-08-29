@@ -78,7 +78,6 @@ class FileEntriesController extends BaseController
 
     public function details(FileEntry $fileEntry, FileResponseFactory $response)
     {
-        // $this->authorize('show', $fileEntry);
         try {
             return $response->create($fileEntry);
         } catch (FileNotFoundException $e) {
@@ -86,11 +85,36 @@ class FileEntriesController extends BaseController
         }
     }
 
-    public function show(FileEntry $fileEntry, FileResponseFactory $response)
-    {
-        // $this->authorize('show', $fileEntry);
+    // public function show($id, FileResponseFactory $response)
+    // {
+    //     // $this->authorize('show', $fileEntry);
         
+    //     try {
+    //         $fileEntry = FileEntry::findOrFail($id);
+        
+    //     // قم بإنشاء المسار الكامل للملف
+    //     $filePath = public_path('uploads/' . $fileEntry->file_name);
+    //     // return $filePath ;
+    
+    //         // تحقق مما إذا كان الملف موجودًا
+    //         if (!file_exists($filePath)) {
+    //             abort(404);
+    //         }
+    
+    //         // إرجاع استجابة تعرض الملف
+    //         return response()->file($filePath);
+    //     } catch (\Exception $e) {
+    //         // التعامل مع الأخطاء الأخرى
+    //         return response()->json(['error' => 'Error retrieving file: ' . $e->getMessage()], 500);
+    //     }
+    // }
+    
+
+    public function show($id, FileResponseFactory $response)
+    {
         try {
+            $fileEntry = FileEntry::findOrFail($id);
+            // $filePath = public_path('uploads/' . $fileEntry->file_name);
             return $response->create($fileEntry);
         } catch (FileNotFoundException $e) {
             abort(404);
@@ -99,15 +123,60 @@ class FileEntriesController extends BaseController
 
     public function showModel(FileEntry $fileEntry)
     {
-        // $this->authorize('show', $fileEntry);
-
         return $this->success(['fileEntry' => $fileEntry]);
     }
+
+    // public function store()
+    // {
+    //     $parentId = (int) request('parentId') ?: null;
+    //     request()->merge(['parentId' => $parentId]);
+    
+    //     $this->validate($this->request, [
+    //         'file' => 'required',
+    //         'file.*' => [
+    //             'required',
+    //             'file',
+    //             function ($attribute, UploadedFile $value, $fail) {
+    //                 $errors = app(ValidateFileUpload::class)->execute([
+    //                     'extension' => $value->guessExtension(),
+    //                     'size' => $value->getSize(),
+    //                 ]);
+    //                 if ($errors) {
+    //                     $fail($errors->first());
+    //                 }
+    //             },
+    //         ],
+    //         'parentId' => 'nullable|exists:file_entries,id',
+    //         'relativePath' => 'nullable|string',
+    //     ]);
+    
+    //     $files = $this->request->file('file');
+    //     if (!is_array($files)) {
+    //         $files = [$files];
+    //     }
+    //     $fileEntries = [];
+    //     try {
+    //         foreach ($files as $file) {
+    //             $payload = new FileEntryPayload(array_merge($this->request->all(), ['file' => $file]));
+    //             $fileEntry = app(CreateFileEntry::class)->execute($payload);
+    //             event(new FileUploaded($fileEntry));
+    //             $fileEntries[] = $fileEntry->load('users');
+    //         }
+    
+    //         return $this->success(['fileEntries' => $fileEntries], 201);
+    //     } catch (\Exception $e) {
+    //         // Handle the error, log it, or return a response with the error message
+    //         return response()->json(['error' => $e->getMessage()], 500);
+    //     }
+    // }
+
 
     public function store()
     {
         $parentId = (int) request('parentId') ?: null;
         request()->merge(['parentId' => $parentId]);
+    
+        $this->authorize('store', [FileEntry::class, $parentId]);
     
         $this->validate($this->request, [
             'file' => 'required',
@@ -132,25 +201,49 @@ class FileEntriesController extends BaseController
         if (!is_array($files)) {
             $files = [$files];
         }
-    
+
         $fileEntries = [];
-    
         try {
             foreach ($files as $file) {
+                // Generate a unique file name
+                $fileName = time() . '-' . $file->getClientOriginalName();
+                $fileUrl = asset('uploads/' . $fileName);
                 $payload = new FileEntryPayload(array_merge($this->request->all(), ['file' => $file]));
                 $fileEntry = app(CreateFileEntry::class)->execute($payload);
                 event(new FileUploaded($fileEntry));
                 $fileEntries[] = $fileEntry->load('users');
+                $file->move(public_path('uploads'), $fileName);
             }
-    
             return $this->success(['fileEntries' => $fileEntries], 201);
         } catch (\Exception $e) {
-            // Handle the error, log it, or return a response with the error message
-            return response()->json(['error' => $e->getMessage()], 500);
+            return response()->json(['error' => 'Error storing files: ' . $e->getMessage()], 500);
         }
     }
-
     
+    // public function store()
+    // {
+    //     $validatedData = $this->validate(request(), [
+    //         'clientExtension' => 'required|string',
+    //         'clientMime' => 'nullable|string|max:255',
+    //         'clientName' => 'required|string',
+    //         'disk' => 'string',
+    //         'diskPrefix' => 'string',
+    //         'filename' => 'required|string',
+    //         'parentId' => 'nullable|exists:file_entries,id',
+    //         'relativePath' => 'nullable|string',
+    //         'workspaceId' => 'nullable|int',
+    //         'size' => 'required|int',
+    //     ]);
+
+    //     $payload = new FileEntryPayload($validatedData);
+
+    //     $fileEntry = app(CreateFileEntry::class)->execute($payload);
+
+    //     event(new FileUploaded($fileEntry));
+
+    //     return $this->success(['fileEntry' => $fileEntry]);
+    // }
+
     public function update(int $entryId)
     {
         // $this->authorize('update', [FileEntry::class, [$entryId]]);

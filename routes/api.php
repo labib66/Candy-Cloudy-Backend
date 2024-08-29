@@ -29,6 +29,7 @@ use Common\Workspaces\Controllers\WorkspaceController;
 use Common\Files\Controllers\FileEntriesController;
 use Common\Files\Controllers\RestoreDeletedEntriesController;
 use Common\Admin\Analytics\AnalyticsController;
+use Common\Files\S3\S3FileEntryController;
 
 // prettier-ignore
 Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], function () {
@@ -175,11 +176,11 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
           Route::get('/{fileEntry}', [FileEntriesController::class, 'show']);
           Route::get('/{fileEntry}/model', [FileEntriesController::class, 'showModel']);
           Route::post('', [FileEntriesController::class, 'store']);
+          // Route::post('', [S3FileEntryController::class, 'store']);
           Route::put('/{entryId}', [FileEntriesController::class, 'update']);
           Route::delete('/{entryIds?}', [FileEntriesController::class, 'destroy']);
         });
 
-    
     // ENTRIES
       Route::get('drive/file-entries/{fileEntry}/model', [
         DriveEntriesController::class,
