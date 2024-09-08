@@ -17,8 +17,8 @@ Route::get('forgot-password', [HomeController::class, 'render']);
 Route::get('pricing', '\Common\Billing\PricingPageController');
 
 
-//CATCH ALL ROUTES AND REDIRECT TO HOME
-// Route::fallback(function(){
-//     return view('welcome');
-// });
-Route::fallback([HomeController::class, 'render']);
+// CATCH ALL ROUTES AND REDIRECT TO HOME
+Route::fallback(function(){
+    return view('welcome');
+});
+// Route::fallback([HomeController::class, 'render']);

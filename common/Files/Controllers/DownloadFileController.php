@@ -30,8 +30,7 @@ class DownloadFileController extends BaseController
 
         $entries = $this->fileEntry->whereIn('id', $ids)->get();
 
-        $this->authorize('download', [FileEntry::class, $entries]);
-
         return app(DownloadFilesResponse::class)->create($entries);
     }
+
 }

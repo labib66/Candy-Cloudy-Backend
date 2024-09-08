@@ -38,7 +38,7 @@ class DuplicateEntriesController extends BaseController
 
     $this->validate($request, [
         'entryIds' => 'required|array',
-        'destinationId' => 'required|integer|exists:file_entries,id',
+        'destinationId' => 'nullable|integer|exists:file_entries,id',
     ]);
 
     $totalBytes = FileEntry::whereIn('id', $entryIds)->sum('file_size');
