@@ -206,7 +206,7 @@ class Oauth
     private function transformSocialProfileData(
         string $service,
         TwoUser|OneUser $data,
-        int $userId,
+        int $userId, 
     ): array {
         return [
             'service_name' => $service,

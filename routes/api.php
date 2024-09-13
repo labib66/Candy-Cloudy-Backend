@@ -111,9 +111,9 @@ Route::group(['middleware' => ['auth:sanctum','verified', 'verifyApiAccess']], f
         'restore',
       ]);
 
-      Route::middleware('auth:sanctum')->group(function () {
+      // Route::middleware('auth:sanctum')->group(function () {
         Route::post('file-entries/duplicate', [DuplicateEntriesController::class, 'duplicate']);
-    });
+    // });
       
 
       Route::post('shareable-links/{linkId}/import', [

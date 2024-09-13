@@ -304,8 +304,7 @@ class FileEntriesController extends BaseController
         } else {
             $entryIds = $this->request->get('entryIds');
         }
-    
-        $userId = Auth::guard('api')->id() ?: 1;
+        $userId = Auth::guard('api')->id();
     
         $this->validate($this->request, [
             'entryIds' => 'array|exists:file_entries,id',

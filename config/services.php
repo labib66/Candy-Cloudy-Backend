@@ -29,8 +29,10 @@ return [
         'token' => env('POSTMARK_TOKEN'),
     ],
 
-    
-    'google' => [
-        'analytics_property_id' => env('GOOGLE_ANALYTICS_PROPERTY_ID'), // اضبط معرف الخاصية الخاص بك هنا
-    ],
+'google' => [
+    'client_id' => env('GOOGLE_CLIENT_ID'),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect' => env('GOOGLE_REDIRECT_URL'),
+],
+
 ];

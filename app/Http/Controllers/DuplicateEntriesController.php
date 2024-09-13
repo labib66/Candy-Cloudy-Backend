@@ -71,7 +71,7 @@ class DuplicateEntriesController extends BaseController
             $this->entry
                 ->with('owner')
                 ->whereIn('id', $entryIds)
-                ->cursor()
+                ->cursor() 
             as $entry
         ) {
             if ($entry->type === 'folder') {
@@ -132,7 +132,7 @@ class DuplicateEntriesController extends BaseController
         // if no parent ID is specified, and we are copying into the
         // same users drive, we can copy into the same folder as original
         if (!$parentId && $copyingIntoSameDrive) {
-            $parentId = $original->parent_id;
+            $parentId = null;
         }
 
         // if we are copying into same folder, add " - Copy" to the end of copies names
@@ -144,7 +144,7 @@ class DuplicateEntriesController extends BaseController
         $copy = $original->replicate();
         $copy->name = $newName;
         $copy->path = null;
-        $copy->file_name = Str::random(36);
+        $copy->file_name =  $original->file_name; 
         $copy->parent_id = $parentId;
         $copy->owner_id = $newOwnerId;
         $copy->save();
