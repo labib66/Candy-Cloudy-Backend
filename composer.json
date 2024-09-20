@@ -43,6 +43,7 @@
     "matchish/laravel-scout-elasticsearch": "^7.5",
     "meilisearch/meilisearch-php": "^1.5",
     "moneyphp/money": "^4.3",
+    "munafio/chatify": "^1.6",
     "muxinc/mux-php": "^3.11",
     "pda/pheanstalk": "^5.0",
     "predis/predis": "^2.0",
